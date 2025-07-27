@@ -32,7 +32,7 @@ public class JudgeZone : MonoBehaviour
             // 방향이 일치하면 Hit 호출
             if (currentNote.noteDirection == judgeDirection.ToString())
             {
-                // TODO: 실제 판정 로직에 따라 Perfect/Good/Miss 골라주세요
+                
                 currentNote.Hit(HitResult.Perfect);
 
                 currentNote = null;

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 public class FlyUIManager : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI restartText;
     
-    public TextMeshProUGUI returnButton;
+    public Button returnButton;
     // Start is called before the first frame update
     void Start()
     {

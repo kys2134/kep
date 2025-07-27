@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FlyGame.unity
     guid: b66d8e2bc399b4f4fb71c7a569fda547
+  - enabled: 1
+    path: Assets/Scenes/Friday.unity
+    guid: 65242e967941840bdb59a7a2c9982c80
   m_configObjects: {}

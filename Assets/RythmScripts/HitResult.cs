@@ -6,7 +6,7 @@ using UnityEngine;
     public enum HitResult
     {
         Perfect,
-        Good,
+       
         Miss
     }
 
