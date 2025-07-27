@@ -4,89 +4,103 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    // ─────────────────────────────────────────────
-    // 싱글톤 인스턴스
+    // 싱글톤
     public static UIManager Instance { get; private set; }
-    // ─────────────────────────────────────────────
 
-    [Header("▶ In-Game UI")]
-    public TextMeshProUGUI scoreText;      // 실시간 점수
-    public TextMeshProUGUI comboText;      // 실시간 콤보
+    [Header("▶ In‑Game UI")]
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI comboText;
 
     [Header("▶ Game Over UI")]
-    public GameObject retryButton;    // "클릭하여 재시작"
-    public GameObject returnButton;        // "마을로 돌아가기"
+    public GameObject retryButton;
+    public GameObject returnButton;
 
     [Header("▶ Final Results UI")]
-    public TextMeshProUGUI finalScoreText; // 최종 점수
-    public TextMeshProUGUI maxComboText;   // 최대 콤보
-    // ─────────────────────────────────────────────
+    public TextMeshProUGUI finalScoreText;
+    public TextMeshProUGUI maxComboText;
 
     void Awake()
     {
-        // 싱글톤 초기화
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+       
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     void Start()
     {
-        // In-Game UI 초기화
-        scoreText.text = "0";
-        comboText.text = "0";
-
-        // Game Over UI & Final Results UI 처음엔 모두 숨김
-        retryButton.SetActive(false);
-        returnButton .SetActive(false);
-        finalScoreText .gameObject.SetActive(false);
-        maxComboText   .gameObject.SetActive(false);
+        // Play 모드로 바로 시작했을 때도 초기 상태를 맞추기 위해 호출
+      
     }
 
-    // ▶ 라이브러리 / 게임 진행 중 호출
+    // 씬 전환 직후마다 불립니다
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        
+        bool isFriday = scene.name == "Friday";
+
+        // 리듬게임 씬일 때만 실시간 점수/콤보 보이기
+        scoreText   .gameObject.SetActive(isFriday);
+        comboText   .gameObject.SetActive(isFriday);
+
+        // 게임오버·결과 UI는 항상 숨김으로 초기화
+        retryButton     .SetActive(false);
+        returnButton    .SetActive(false);
+        finalScoreText  .gameObject.SetActive(false);
+        maxComboText    .gameObject.SetActive(false);
+    }
+
+    // 호출 시 점수 텍스트 갱신
     public void UpdateScore(int score)
     {
-        scoreText.text = score.ToString("Score : "+score);
+        if (scoreText.gameObject.activeSelf)
+            scoreText.text = score.ToString("Score :"+ score);
     }
 
+    // 호출 시 콤보 텍스트 갱신
     public void UpdateCombo(int combo)
     {
-        comboText.text = combo.ToString("Combo :"+combo);
+        if (comboText.gameObject.activeSelf)
+            comboText.text = combo.ToString("Combo :"+ combo);
     }
 
-    // ▶ 플레이어 사망 또는 게임 종료 시 호출
+    // 게임오버 시 재시작·리턴 버튼 보이기
     public void SetRestart()
     {
-        retryButton.SetActive(true);
-        returnButton.SetActive(true);
-        
+        retryButton  .SetActive(true);
+        returnButton .SetActive(true);
     }
 
-    // ▶ 게임 종료 후 결과 표시
-    //    finalScore: 최종 획득 점수
-    //    maxCombo:   플레이 도중 달성한 최대 콤보
+    // 최종 결과 표시
     public void ShowResults(int finalScore, int maxCombo)
     {
-        // 텍스트 갱신
         finalScoreText.text = $"Score: {finalScore}";
         maxComboText  .text = $"Max Combo: {maxCombo}";
-
-        // 결과 UI 활성화
         finalScoreText.gameObject.SetActive(true);
         maxComboText  .gameObject.SetActive(true);
     }
 
-    // ▶ 버튼 이벤트에 연결
+    // 마을로 돌아가기 버튼
     public void ReturnToVillage()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainScene");
     }
 }
+
 
 
 

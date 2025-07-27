@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
                 //게임 재시작
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                 {
-                    gameManager.RestartGame();
+                    GameManager.Instance.RestartGame();
                 }
             }
             else

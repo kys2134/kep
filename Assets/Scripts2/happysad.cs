@@ -17,6 +17,6 @@ public class happysad : MonoBehaviour
         happyPanel.SetActive(cleared);
 
         //(선택) 초기화
-        // PlayerPrefs.DeleteKey("RhythmCleared");
+         PlayerPrefs.DeleteKey("RhythmCleared");
     }
 }
