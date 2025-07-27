@@ -12,8 +12,7 @@ public class happysad : MonoBehaviour
     {
         // 클리어 여부 체크
         bool cleared = PlayerPrefs.GetInt("RhythmCleared", 0) == 1;
-
-        // Sad/Happy 토글
+        
         sadPanel  .SetActive(!cleared);
         happyPanel.SetActive(cleared);
 
