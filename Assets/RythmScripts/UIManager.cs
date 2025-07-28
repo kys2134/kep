@@ -67,14 +67,14 @@ public class UIManager : MonoBehaviour
     public void UpdateScore(int score)
     {
         if (scoreText.gameObject.activeSelf)
-            scoreText.text = score.ToString("Score :"+ score);
+            scoreText.text = "Score :"+score.ToString();
     }
 
     // 호출 시 콤보 텍스트 갱신
     public void UpdateCombo(int combo)
     {
         if (comboText.gameObject.activeSelf)
-            comboText.text = combo.ToString("Combo :"+ combo);
+            comboText.text ="Combo :"+combo.ToString();
     }
 
     // 게임오버 시 재시작·리턴 버튼 보이기

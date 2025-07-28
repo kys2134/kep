@@ -4,9 +4,16 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance { get; private set; }
-
-    public int currentScore  { get; private set; }
-    public int currentCombo  { get; private set; }
+    public int tempScore;
+    public int currentScore
+    {
+        get { return tempScore;}
+        set
+        {
+            tempScore = value;
+        }
+        }
+        public int currentCombo  { get; private set; }
     public int maxCombo      { get; private set; }
 
     void Awake()
